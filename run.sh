@@ -30,7 +30,7 @@ docker run -d -ti --rm \
 	-v /etc/alsa:/etc/alsa \
 	-v /usr/share/alsa:/usr/share/alsa \
 	-v /run/pcscd/pcscd.comm:/run/pcscd/pcscd.comm \
-	-v /home/brf/.config/pulse:/home/user/.config/pulse \
+	-v ${HOME}/.config/pulse:/home/user/.config/pulse \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-v /run/user/$(id -u)/pulse:/run/user/1000/pulse \
 	-v ${MAILDIR}:/home/user/.thunderbird \
