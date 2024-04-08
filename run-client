@@ -1,18 +1,19 @@
 #!/bin/bash
 
-# run GnuPG agent
-eval $(gpg-agent --daemon)
+{
+    # run GnuPG agent
+    eval $(gpg-agent --daemon)
 
-# update GnuPG keyrings on exit
-function sync_gpg() {
-    find /opt/mail -name \*.gpg | while read n; do
-        gpg --import-options import-clean,import--minimal --import $n
-        rm -f $n*
-    done
-}
-trap sync_gpg EXIT
+    # update GnuPG keyrings on exit
+    function sync_gpg() {
+        find /opt/mail -name \*.gpg | while read n; do
+            gpg --import-options import-clean,import-minimal --import $n
+            rm -f $n*
+        done
+    }
+    trap sync_gpg EXIT
 
-# run thunderbird
-# NSPR_LOG_MODULES=POP3:5,SMTP:5 NSPR_LOG_FILE=/opt/mail/thunderbird-activity.log thunderbird
-thunderbird
-
+    # run thunderbird
+    # NSPR_LOG_MODULES=POP3:5,SMTP:5 NSPR_LOG_FILE=/opt/mail/thunderbird-activity.log thunderbird
+    thunderbird
+} > /home/user/exchange/thunderbird.log 2>&1
